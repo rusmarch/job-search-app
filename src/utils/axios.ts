@@ -1,7 +1,7 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 
 const BASE_API = 'https://jsearch.p.rapidapi.com';
-const API_KEY = '7f863811f4mshef8d5f0229ada5fp18ff82jsnd1c5fa8d921b'
+const API_KEY = '85528b6b8dmsh6ec63d029ce82eap1e7d3cjsn797f70fdb5fd';
 
 export const axiosInstance = axios.create({
   baseURL: BASE_API,
@@ -12,15 +12,9 @@ export const axiosInstance = axios.create({
    },
 });
 
-// export const fetcher = async (args: string | [string, AxiosRequestConfig]) => {
-//   const [url, config] = Array.isArray(args) ? args : [args];
-//   const res = await axiosInstance.get(url, { ...config });
-//   return res.data;
-// };
-
 export const endpoints = {
     job: {
-      list: '/search',
+      search: (query: string) => `/search?query=${query}`,
       details: (id: string) => `/job-details/${id}`,
     },
 }

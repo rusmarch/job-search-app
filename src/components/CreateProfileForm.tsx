@@ -1,9 +1,9 @@
 'use client'
 import { useRouter } from "next/navigation";
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { useAuth } from "@/hooks/use-auth";
+import { useAuth } from "@/hooks/useAuth";
 import type { UserProfileData } from '@/types/user';
 
 export default function CreateProfileForm() {
@@ -67,7 +67,7 @@ export default function CreateProfileForm() {
       <textarea
         {...methods.register('aboutMe')}
         name="aboutMe"
-        placeholder="Tell about yourself"
+        placeholder="Tell about yourself..."
         className="mb-2 p-2 border rounded"
       ></textarea>
       {methods.formState.errors.aboutMe &&

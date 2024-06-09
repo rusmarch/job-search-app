@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/hooks/use-auth"
+import { useAuth } from "@/hooks/useAuth"
 
 export default function Header() {
   const { user, logout } = useAuth();
@@ -8,7 +8,7 @@ export default function Header() {
 
   const onLogout = () => {
     logout();
-    router.push('/');
+    router.push('/create-profile');
   }
 
   return (

@@ -1,6 +1,6 @@
 'use client'
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useBoolean } from "./use-boolean";
+import { useBoolean } from "./useBoolean";
 import type { UserProfileData } from "@/types/user";
 
 type ReturnType = {
