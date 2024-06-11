@@ -68,7 +68,7 @@ export default function CreateProfileForm() {
         {...methods.register('aboutMe')}
         name="aboutMe"
         placeholder="Tell about yourself..."
-        className="mb-2 p-2 border rounded"
+        className="mb-2 p-2 border rounded w-full"
       ></textarea>
       {methods.formState.errors.aboutMe &&
         <p className="text-red-500">{methods.formState.errors.aboutMe.message}</p>}
