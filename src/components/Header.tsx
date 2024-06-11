@@ -13,7 +13,7 @@ export default function Header() {
 
   const onLogout = () => {
     logout();
-    router.push('/jobs');
+    router.push('/');
   }
 
   useEffect(() => {
