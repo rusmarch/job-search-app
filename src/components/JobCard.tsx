@@ -1,11 +1,8 @@
 import Link from "next/link";
-import { FaStar } from "react-icons/fa";
-import { FaRegStar } from "react-icons/fa";
-import { FcLikePlaceholder } from "react-icons/fc";
-import { FcLike } from "react-icons/fc";
+import Image from 'next/image';
 import { BiSolidLike } from "react-icons/bi";
 import { BiLike } from "react-icons/bi";
-
+import { shortenText } from "@/utils/shorten-text";
 import type { Job } from "@/types/job";
 
 type Props = {
@@ -22,31 +19,32 @@ export default function JobCard({
   isLiked,
 }: Props) {
   return (
-    <div className="bg-green shadow-md rounded-lg p-3 my-0.5 border border-gray-300 w-full">
-      <div className="flex justify-between">
-        <h4 className="text-base font-semibold">{job.job_title}</h4>
+    <div className="bg-green shadow-md rounded-lg p-5 my-0.5 border border-gray-300 w-full min-h-[160px] flex flex-col justify-between">
+      <div className="flex justify-between mb-2">
+        <Link href={`/jobs/${job.job_id}`}>
+          <h4 className="text-base font-semibold">{job.job_title}</h4>
+        </Link>
         <div className="flex items-start">
           {isLiked ? (
             <BiSolidLike
-              size={22}
+              size={24}
               color="orange"
               className="text-yellow-500 cursor-pointer"
               onClick={() => onRemoveLike(job.job_id)}
             />
           ) : (
             <BiLike
-              size={22}
+              size={24}
               className="text-gray-500 cursor-pointer"
               onClick={() => onLike(job)}
             />
           )}
         </div>
       </div>
-      {/* <p className="text-gray-600">{job.job_description}</p> */}
-      {/* <p className="text-gray-500">{job.location}</p> */}
-      <div className="flex justify-end items-end align-items gap-2">
-        <button className="bg-blue-500 text-white text-sm px-4 rounded" >
-          <Link href={`/jobs/${job.job_id}`}>Details</Link>
+      <p className="text-gray-600">{shortenText(job.job_description, 500)}</p>
+      <div className="flex justify-end mt-2">
+        <button className="bg-blue-500 text-white text-sm px-5 py-1 rounded" >
+          <Link href={`/jobs/${job.job_id}`}>View Details</Link>
         </button>
       </div>
     </div>
