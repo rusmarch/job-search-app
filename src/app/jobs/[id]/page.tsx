@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import { useRouter } from "next/navigation";
 import JobDetails from "@/components/JobDetails";
-import { getJobDetails } from "@/services/getJobs";
+import { getJobDetails } from "@/services/get-jobs";
 import type { Job } from "@/types/job";
 
 type Props = {

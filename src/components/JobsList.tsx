@@ -1,20 +1,19 @@
 'use client'
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import Link from "next/link";
-import { useAuth } from "@/hooks/useAuth";
-import { getJobsBySearch } from "@/services/getJobs";
-import { useLikedJobs } from "@/hooks/useLikedJobs";
+import { useAuth } from "@/hooks/use-auth";
+import { getJobsBySearch } from "@/services/get-jobs";
+import { useLikedJobs } from "@/hooks/use-liked-jobs";
 import SearchJobs from "./SearchJobs";
 import JobCard from "./JobCard";
 import type { Job } from "@/types/job";
 
 export default function JobList() {
-  const { authState: { user } } = useAuth();
+  const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const profileData = user && user.jobTitle;
   const query = searchQuery || profileData;
-  const { data: jobs, isLoading, error, mutate } = useSWR(
+  const { data: jobs, isLoading, error } = useSWR(
     query ? query : null,
     getJobsBySearch
   );
@@ -28,16 +27,15 @@ export default function JobList() {
     if (user && !searchQuery) {
       setSearchQuery(profileData);
     }
-
   }, [user, profileData, searchQuery]);
 
   if (isLoading) return <h3>Loading...</h3>;
   if (error) return <h3>Error loading jobs</h3>;
-  console.log(likedJobs);
+
   return (
-    <div>
+    <>
       <SearchJobs onSearch={handleSearch} />
-      <ul>
+      <div className="flex flex-col mt-10 w-full">
         {query && jobs.data.map((job: Job) => (
           <JobCard
             key={job.job_id}
@@ -47,7 +45,7 @@ export default function JobList() {
             isLiked={likedJobs.some((likedJob) => likedJob.job_id === job.job_id)}
           />
         ))}
-      </ul>
-    </div>
+      </div>
+    </>
   );
 }

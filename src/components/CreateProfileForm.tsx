@@ -3,11 +3,11 @@ import { useRouter } from "next/navigation";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/use-auth";
 import type { UserProfileData } from '@/types/user';
 
 export default function CreateProfileForm() {
-  const { createProfile } = useAuth();
+  const { user, createProfile } = useAuth();
   const router = useRouter();
 
   const userProfileSchema = Yup.object().shape({
@@ -43,7 +43,7 @@ export default function CreateProfileForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex flex-col items-center bg-white p-4 rounded shadow-md"
+      className="flex flex-col items-center bg-white p-8 rounded shadow-md"
     >
       <h2 className="text-xl font-bold mb-4">Create Profile</h2>
       <input
@@ -72,7 +72,12 @@ export default function CreateProfileForm() {
       ></textarea>
       {methods.formState.errors.aboutMe &&
         <p className="text-red-500">{methods.formState.errors.aboutMe.message}</p>}
-      <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">Create Profile</button>
+      <button
+        type="submit" disabled={!!user}
+        // className="bg-blue-500 text-white py-2 px-4 rounded w-full">
+        className={`bg-blue-500 text-white py-2 px-4 rounded w-full ${user ? 'opacity-50 cursor-not-allowed' : ''}`}>
+        Create Profile
+      </button>
     </form>
   );
 }

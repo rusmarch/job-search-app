@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BASE_API = 'https://jsearch.p.rapidapi.com';
-const API_KEY = '45203ca76emshf28a2a359616e77p1463f3jsnf0e7a17a5d90';
+const API_KEY = '66e90568cbmsh301c370f045b79bp149c00jsn4afaef3abbd1';
 
 export const axiosInstance = axios.create({
   baseURL: BASE_API,

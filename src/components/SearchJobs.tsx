@@ -16,10 +16,14 @@ export default function SearchJobs({ onSearch }: Props) {
     };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="flex justify-center items-center mb-4"
+    >
       <input
         type="search"
-        placeholder="search"
+        className="px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:border-blue-500 w-full"
+        placeholder="search job"
         value={query}
         onChange={(event) => setQuery(event.target.value)}
       />

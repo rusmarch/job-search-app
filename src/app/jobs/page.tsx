@@ -3,9 +3,11 @@ import JobList from "@/components/JobsList";
 export default function JobsPage() {
 
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center">
       <h1>Job List</h1>
-      <JobList />
+      <div className="px-30 py-20">
+        <JobList />
+      </div>
     </div>
   );
 }
