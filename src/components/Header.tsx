@@ -16,10 +16,6 @@ export default function Header() {
     router.push('/');
   }
 
-  useEffect(() => {
-    localStorage
-  }, [])
-
   return (
     <header className="bg-gray-800 px-5 flex justify-between items-center h-14">
       <div className="text-white flex items-center space-x-4">
