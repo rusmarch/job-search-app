@@ -1,7 +1,6 @@
 'use client'
 import useSWR from "swr";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { getJobDetails } from "@/services/get-jobs";
 import { useLikedJobs } from "@/hooks/use-liked-jobs";
 import type { Job } from "@/types/job";
@@ -16,8 +15,8 @@ export default function JobDetails({ jobId }: Props) {
   const { data, isLoading, error } = useSWR(jobId ? jobId : null, getJobDetails);
   const job = data && data.length > 0 ? data[0] : null;
 
-  const { likedJobs, addLikedJob, removeLikedJob } = useLikedJobs();
-  const isLiked = likedJobs && job && likedJobs.some((likedJob) => likedJob.job_id === job.job_id)
+  const { addLikedJob, removeLikedJob, checkIsLiked } = useLikedJobs();
+  const isLiked = checkIsLiked(job.job_id);
 
   if (isLoading) return <h3>Loading...</h3>;
   if (error) return <h3>Error loading jobs</h3>;
