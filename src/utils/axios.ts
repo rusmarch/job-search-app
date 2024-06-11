@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const BASE_API = 'https://jsearch.p.rapidapi.com';
-const API_KEY = '85528b6b8dmsh6ec63d029ce82eap1e7d3cjsn797f70fdb5fd';
+const API_KEY = '45203ca76emshf28a2a359616e77p1463f3jsnf0e7a17a5d90';
 
 export const axiosInstance = axios.create({
   baseURL: BASE_API,
@@ -15,6 +15,6 @@ export const axiosInstance = axios.create({
 export const endpoints = {
     job: {
       search: (query: string) => `/search?query=${query}`,
-      details: (id: string) => `/job-details/${id}`,
+      details: (id: string) => `/job-details?job_id=${id}`,
     },
 }

@@ -7,7 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import type { UserProfileData } from '@/types/user';
 
 export default function CreateProfileForm() {
-  const { login } = useAuth();
+  const { createProfile } = useAuth();
   const router = useRouter();
 
   const userProfileSchema = Yup.object().shape({
@@ -35,9 +35,9 @@ export default function CreateProfileForm() {
 
   const onSubmit = methods.handleSubmit(
     (formData: UserProfileData) => {
-      login(formData);
+      createProfile(formData);
       methods.reset();
-      router.push('/jobs');
+      router.replace('/jobs');
     });
 
   return (

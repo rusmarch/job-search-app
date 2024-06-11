@@ -1,44 +1,63 @@
 'use client'
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useBoolean } from "./useBoolean";
+import { useEffect, useState } from "react";
 import type { UserProfileData } from "@/types/user";
 
-type ReturnType = {
- user: UserProfileData | null;
- login: (user: UserProfileData) => void;
- logout: VoidFunction;
- isLoading: boolean;
-};
+type AuthState = { 
+  user: UserProfileData | null;
+  isLoading: boolean;
+}
 
-export const useAuth = (userData?: UserProfileData): ReturnType => {
-  const [user, setUser] = useState<UserProfileData | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+type ReturnType = {
+ authState: AuthState;
+ createProfile: (user: UserProfileData) => void;
+ logout: VoidFunction;
+}
+
+export const useAuth = (): ReturnType => {
+    const [authState, setAuthState] = useState<AuthState>({
+      user: null,
+      isLoading: true,
+    });
   
   useEffect(() => {
-    const checkLocalStorage = async () => {
+    const checkLocalStorage = () => {
       const storedUser = localStorage.getItem('user');
       if (storedUser) {
-        setUser(JSON.parse(storedUser));
+        setAuthState(prevState => ({
+          ...prevState,
+          user: JSON.parse(storedUser),
+          isLoading: false,
+        }));
+      } else {
+        setAuthState(prevState => ({
+          ...prevState,
+          isLoading: false,
+        }));
       }
     };
-    setIsLoading(false);
+
     checkLocalStorage();
   }, []);
 
-  const login = (user: UserProfileData) => {
-    setUser(user);
+  const createProfile = (user: UserProfileData) => {
+    setAuthState(prevState => ({
+      ...prevState,
+      user,
+    }));
     localStorage.setItem('user', JSON.stringify(user));
   };
 
   const logout = () => {
-    setUser(null);
+    setAuthState(prevState => ({
+      ...prevState,
+      user: null,
+    }));
     localStorage.removeItem('user');
   };
 
   return {
-    user,
-    login,
+    authState,
+    createProfile,
     logout,
-    isLoading,
   };
 }

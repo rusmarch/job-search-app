@@ -3,18 +3,18 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth"
 
 export default function Header() {
-  const { user, logout } = useAuth();
+  const { authState, logout } = useAuth();
   const router = useRouter();
 
   const onLogout = () => {
     logout();
-    router.push('/create-profile');
+    router.push('/');
   }
 
   return (
     <header>
       <div>
-        <span>User: {user?.name} </span>
+        <span>User: {authState.user?.name} </span>
         <button onClick={onLogout}>Logout</button>
       </div>
     </header>
