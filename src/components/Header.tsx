@@ -1,23 +1,34 @@
 'use client'
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/hooks/use-auth"
 import { useLikedJobs } from "@/hooks/use-liked-jobs";
-import { useEffect } from "react";
 
 export default function Header() {
   const { user, logout } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const { likedJobs } = useLikedJobs();
+  const [isUserLoaded, setIsUserLoaded] = useState(false);
+
+  useEffect(() => {
+    if (user !== undefined) {
+      setIsUserLoaded(true);
+    }
+  }, [user]);
 
   const onLogout = () => {
     logout();
     router.push('/');
   }
 
+  if (!isUserLoaded) {
+    return null;
+  }
+
   return (
-    <header className="bg-gray-800 px-5 flex justify-between items-center h-14">
+    <header className="bg-gray-800 px-5 flex justify-between items-center h-14 sticky top-0">
       <div className="text-white flex items-center space-x-4">
         <Link href="/">
           <p className={`text-white ${pathname === '/' ? 'font-bold text-blue-500' : ''}`}>Home</p>

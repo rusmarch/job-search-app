@@ -1,5 +1,5 @@
 'use client'
-import { useLikedJobs } from "@/hooks/use-liked-jobs";
+import { checkIsLiked, useLikedJobs } from "@/hooks/use-liked-jobs";
 import JobCard from "./JobCard";
 import type { Job } from "@/types/job";
 
@@ -13,7 +13,7 @@ export default function LikedJobList() {
           job={job}
           onLike={addLikedJob}
           onRemoveLike={removeLikedJob}
-          isLiked={likedJobs.some((likedJob) => likedJob.job_id === job.job_id)}
+          isLiked={checkIsLiked(likedJobs, job.job_id)}
         />
       ))}
     </div>

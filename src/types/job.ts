@@ -67,3 +67,5 @@ export type Job = {
     reviews_link: string;
   }[];
 }
+
+export type JobList = Job[];

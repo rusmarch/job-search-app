@@ -1,16 +1,15 @@
 'use client'
-import type { Job } from '@/types/job';
 import { useLocalStorage } from './use-local-storage';
+import type { Job, JobList } from '@/types/job';
 
 type ReturnType = {
-  likedJobs: Job[] | [];
+  likedJobs: JobList | [];
   addLikedJob: (job: Job) => void;
   removeLikedJob: (jobId: string) => void;
-  checkIsLiked: (id: string) => boolean;
 }
 
 export const useLikedJobs = (): ReturnType => {
-  const [likedJobs, setLikedJobs] = useLocalStorage<Job[] | []>('likedJobs', [])
+  const [likedJobs, setLikedJobs] = useLocalStorage<JobList | []>('likedJobs', [])
 
   const addLikedJob = (job: Job) => {
     const updatedLikedJobs = [...likedJobs, job];
@@ -22,9 +21,9 @@ export const useLikedJobs = (): ReturnType => {
     setLikedJobs(updatedLikedJobs);
   };
 
-  const checkIsLiked = (jobId: string): boolean => 
-    likedJobs.some((job) => job.job_id === jobId);
-  
-
-  return { likedJobs, addLikedJob, removeLikedJob, checkIsLiked };
+  return { likedJobs, addLikedJob, removeLikedJob };
 };
+
+  export const checkIsLiked = (likedJobs: JobList, jobId: string): boolean => 
+    likedJobs.some((likedJob) => likedJob.job_id === jobId);
+  

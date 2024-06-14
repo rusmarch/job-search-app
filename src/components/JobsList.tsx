@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { useAuth } from "@/hooks/use-auth";
 import { getJobsBySearch } from "@/services/get-jobs";
-import { useLikedJobs } from "@/hooks/use-liked-jobs";
+import { checkIsLiked, useLikedJobs } from "@/hooks/use-liked-jobs";
 import SearchJobs from "./SearchJobs";
 import JobCard from "./JobCard";
 import type { Job } from "@/types/job";
@@ -42,7 +42,7 @@ export default function JobList() {
             job={job}
             onLike={addLikedJob}
             onRemoveLike={removeLikedJob}
-            isLiked={likedJobs.some((likedJob) => likedJob.job_id === job.job_id)}
+            isLiked={checkIsLiked(likedJobs, job.job_id)}
           />
         ))}
       </div>

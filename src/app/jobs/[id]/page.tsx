@@ -15,7 +15,9 @@ export default async function JobsDetailsPage({ params }: Props) {
   return (
     <div>
       <h1>Job Details</h1>
-      <JobDetails jobId={id} />
+      <div className="list-container">
+        <JobDetails jobId={id} />
+      </div>
     </div>
   );
 }
